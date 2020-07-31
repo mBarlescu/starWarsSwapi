@@ -1,25 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { StarWarsContext } from 'context'
+import { MetaData } from 'scenes/MetaData'
+import { Films } from 'scenes/Films'
+import { useStyles } from 'scenes/styles'
+import { AllCharacters } from 'scenes/AllCharacters'
 
-function App() {
+const App = () => {
+
+ 
+  const [search, setSearch] = useState('')
+  const [allCharacters, setAllCharacters] = useState([])
+  const [selectedCharacter, setSelectedCharacter] = useState(null)
+  const [selectedFilm, setSelectedFilm] = useState(null)
+  const [filmsList, setFilmsList] = useState([])
+  const [metaData, setMetaData] = useState(null)
+  const [characters, setCharacters] = useState([])
+  const [vehicles, setVehicles] = useState([])
+  const [planets, setPlanets] = useState([])
+  
+  const styles = useStyles({selectedFilm})
+
+  const starWarsValues = {
+    search,
+    setSearch,
+    allCharacters,
+    setAllCharacters,
+    selectedCharacter,
+    setSelectedCharacter,
+    selectedFilm,
+    setSelectedFilm,
+    filmsList,
+    setFilmsList,
+    metaData,
+    setMetaData,
+    characters,
+    setCharacters,
+    vehicles,
+    setVehicles,
+    planets,
+    setPlanets,
+    styles,
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StarWarsContext.Provider value={starWarsValues}>
+      <div className={styles.header}>
+      <Films /> 
+      <AllCharacters />
+      </div>
+      <br />
+      <MetaData />
+    </StarWarsContext.Provider>
   );
 }
 
